@@ -14,3 +14,4 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [App\Http\Controllers\MainController::class, 'index'])->name('home');
+Route::post('/subscribe', [App\Http\Controllers\SubscriberController::class, 'subscribe']);

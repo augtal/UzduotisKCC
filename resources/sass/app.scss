@@ -6,3 +6,9 @@
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
+p.errorMsg {
+    margin-top: 0;
+    margin-bottom: 0;
+    color: red;
+}
