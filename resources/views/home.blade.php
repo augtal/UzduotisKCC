@@ -5,15 +5,11 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header"><h3>{{ __('Subscribe to our newsletter') }}</h3></div>
+                <div class="card-header"><h3>{{ __('Welcome') }}</h3></div>
 
                 <div class="card-body">
-                    <div id="subscribeFormDiv">
-                        <form id="subscribeForm" action="/subscribe" method="post">
-                            @csrf
-                            <label for=""></label>
-                        </form>
-                    </div>
+                    <h4>{{ __('To subscribe to our newsletter press the button below')}}</h4>
+                    <a href="{{ url('subscribe') }}" class="btn btn-info">Subscribe</a>
                 </div>
             </div>
         </div>

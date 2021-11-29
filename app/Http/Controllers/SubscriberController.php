@@ -9,6 +9,10 @@ class SubscriberController extends Controller
 {
     private $FILE_PATH = "storage\users\subscribers\subscribers.csv";
 
+    public function index(){
+        return view('subscribe')->with('message', null);
+    }
+
     /**
      * Adds users email to subscription file
      *
@@ -17,10 +21,21 @@ class SubscriberController extends Controller
      */
     public function subscribe(Request $request){
         $input = $request->input();
+        $message = [];
+        dd($input);
         
         if(array_key_exists("emailInput", $input)){
-            $this->writeToFile($input);
+            if($this->writeToFile($input)){
+                $message['type'] = "success";
+                $message['message'] = "Email was successfully registered!";
+            }
+            else{
+                $message['type'] = "error";
+                $message['message'] = "Email is already registered!";
+            }
         }
+
+        return view('subscribe')->with('message', $message);
     }
 
     /**
@@ -40,7 +55,6 @@ class SubscriberController extends Controller
         }
         // found email already in the file
         else{
-
             return false;
         }
     }
