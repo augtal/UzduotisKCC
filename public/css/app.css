@@ -10024,3 +10024,22 @@ p.errorMsg {
   margin-bottom: 0;
   color: red;
 }
+
+h3.success {
+  color: green;
+}
+
+h3.error {
+  color: red;
+}
+
+input.custom-Email {
+  border: 2px solid;
+  border-radius: 0.25rem;
+}
+
+button.btn-custom {
+  background-color: rgba(22, 170, 22, 0.822);
+  border-color: black;
+  border: 1px solid;
+}
