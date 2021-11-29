@@ -20,12 +20,13 @@ class SubscriberController extends Controller
      * @return void
      */
     public function subscribe(Request $request){
-        $input = $request->input();
+        $input = $request->all();
         $message = [];
-        dd($input);
         
-        if(array_key_exists("emailInput", $input)){
-            if($this->writeToFile($input)){
+        if(array_key_exists("email", $input)){
+            $email = json_decode($input['formValues'], true);
+
+            if($this->writeToFile($email['email'])){
                 $message['type'] = "success";
                 $message['message'] = "Email was successfully registered!";
             }
@@ -44,13 +45,11 @@ class SubscriberController extends Controller
      * @param JSON $formInput From data as JSON
      * @return void
      */
-    private function writeToFile($formInput){
-        $input = $formInput['emailInput'];
-
-        $index = $this->checkIfEmailExists($input);
+    private function writeToFile($email){
+        $index = $this->checkIfEmailExists($email);
         // didn't find email
         if($index == false){
-            $this->insertEmail($input);
+            $this->insertEmail($email);
             return true;
         }
         // found email already in the file

@@ -14,23 +14,33 @@
         function createPage() {
             var form = document.createElement("div");
 
-            var sites = {!! json_encode($message, JSON_HEX_TAG)!!};
-
-            console.log(sites);
+            var message = {!! json_encode($message, JSON_HEX_TAG)!!};
 
             let markup =`
             <div class="row justify-content-center">
-                <div class="col-md-8">
-                    <div class="card">
+                <div class="col-md-8">`;
+
+            if (message != null){
+                if (message['type'] == 'success')
+                    markup += `<h4><li class="success">${message['message']}</li></h4>`;
+                else
+                    markup += `<h4><li class="error">${message['message']}</li></h4>`;
+            }
+                    
+            markup += `<div class="card">
                         <div class="card-header"><h3>Subscribe to our newsletter</h3></div>
 
                         <div class="card-body">
                             <form id="subscribeForm" action="/subscribe/completed" method="post">
                                 @csrf
-                                <label for="email">Enter your email: </label>
-                                <input type="email" id="email" name="email" required>
-                                <br>
-                                <button type="submit" class="btn btn-success">Submit</button>
+                                <div>
+                                    <label for="email">Enter your email: </label>
+                                    <input type="text" id="email" name="email" class="custom-Email">
+                                    <input type="hidden" id="formValues" name="formValues" value="">
+                                </div>
+                                <p style="display: none" class="errorMsg" id="errorMsg">Email adress is wrong</p>
+
+                                <button type="submit" class="btn btn-custom">Submit</button>
                             </form>
                         </div>
                     </div>
@@ -54,6 +64,7 @@
             event.preventDefault();
 
             if(validateForm()){
+                document.getElementById("formValues").value = JSON.stringify({'email' : form["email"].value});
                 form.submit();
             }
         }
@@ -61,11 +72,18 @@
         function validateForm() {
             var email = document.forms["subscribeForm"]["email"];
             var errorMsg = document.getElementById("errorMsg");
+            var re = new RegExp('[a-zA-Z0-9_].+@[a-zA-Z0-9_].+\.[a-zA-Z0-9_].+');
 
-            if (email.value == "") {
+            if (! re.test(email.value)) {
                 errorMsg.style.display = "block";
                 return false;
             }
+            else if (email.value == "") {
+                errorMsg.style.display = "block";
+                return false;
+            }
+
+            
 
             return true;
         }

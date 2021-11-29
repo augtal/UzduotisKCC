@@ -13,11 +13,11 @@ p.errorMsg {
     color: red;
 }
 
-h3.success{
+.success{
     color: green;
 }
 
-h3.error{
+.error{
     color: red;
 }
 
@@ -30,4 +30,5 @@ button.btn-custom{
     background-color: rgba(22, 170, 22, 0.822);
     border-color: black;
     border: 1px solid;
+    margin-top: 0.25rem;
 }
